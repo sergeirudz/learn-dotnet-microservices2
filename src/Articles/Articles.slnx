@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/Services/" />
+  <Folder Name="/Services/Submission/">
+    <Project Path="Services/Submission/Submission.Api/Submission.Api.csproj" />
+    <Project Path="Services/Submission/Submission.Application/Submission.Application.csproj" />
+    <Project Path="Services/Submission/Submission.Domain/Submission.Domain.csproj" />
+    <Project Path="Services/Submission/Submission.Persistence/Submission.Persistence.csproj" />
+  </Folder>
+</Solution>
