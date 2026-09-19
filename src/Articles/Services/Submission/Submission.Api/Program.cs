@@ -1,14 +1,10 @@
-namespace Submission.Api;
+using Submission.Api.Endpoints;
 
-public class Program
-{
-    public static void Main(string[] args)
-    {
-        var builder = WebApplication.CreateBuilder(args);
-        var app = builder.Build();
+var builder = WebApplication.CreateBuilder(args);
+var app = builder.Build();
 
-        app.MapGet("/", () => "Hello World!");
+app.MapGet("/", () => "Hello World!");
 
-        app.Run();
-    }
-}
+
+app.MapAllEndpoints();
+app.Run();
