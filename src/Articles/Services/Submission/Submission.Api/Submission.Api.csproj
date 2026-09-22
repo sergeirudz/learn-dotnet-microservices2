@@ -10,4 +10,10 @@
       <ProjectReference Include="..\Submission.Application\Submission.Application.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Reference Include="Articles.Abstractions">
+        <HintPath>..\..\..\BuildingBlocks\Articles.Abstractions\bin\Debug\net10.0\Articles.Abstractions.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>

@@ -1,6 +1,8 @@
 <Solution>
   <Folder Name="/BuildingBlocks/">
-    <Project Path="../BuildingBlocks/Articles.Abstractions/Articles.Abstractions.csproj" />
+    <Project Path="BuildingBlocks/Articles.Abstractions/Articles.Abstractions.csproj" />
+    <Project Path="BuildingBlocks/Blocks.Domain/Blocks.Domain.csproj" />
+    <Project Path="BuildingBlocks/Blocks.EntityFramework/Blocks.EntityFramework.csproj" />
   </Folder>
   <Folder Name="/Services/" />
   <Folder Name="/Services/Submission/">

@@ -1,4 +1,5 @@
 using Articles.Abstractions.Enums;
+using Blocks.Domain.Entities;
 
 namespace Submission.Domain.Entities;
 
@@ -7,7 +8,7 @@ namespace Submission.Domain.Entities;
  * Partial class in the same namespace
  *
  */
-public partial class Journal
+public partial class Journal : IEntity
 {
     public Article CreateArticle(string title, ArticleType Type, string scope)
     {
