@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Submission.Application.Features.CreateArticle;
 
-public record CreateArticleCommand(int JournalId, string Title, string Scope, ArticleType ArticleType)
+public record CreateArticleCommand(int JournalId, string Title, ArticleType Type, string Scope)
     : IRequest<IdResponse>
 {
 }

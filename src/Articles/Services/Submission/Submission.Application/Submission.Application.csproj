@@ -13,6 +13,8 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\BuildingBlocks\Articles.Abstractions\Articles.Abstractions.csproj" />
+      <ProjectReference Include="..\Submission.Domain\Submission.Domain.csproj" />
+      <ProjectReference Include="..\Submission.Persistence\Submission.Persistence.csproj" />
     </ItemGroup>
 
 </Project>
