@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\..\BuildingBlocks\Articles.Security\Articles.Security.csproj" />
       <ProjectReference Include="..\Submission.Application\Submission.Application.csproj" />
     </ItemGroup>
 
