@@ -15,4 +15,7 @@ public class Article : IEntity
     public ArticleStage Stage { get; internal set; }
     public int JournalId { get; init; }
     public Journal Journal { get; init; }
+
+    // Navigation collection for the Article-Actor link entity
+    public List<ArticleActor> Actors { get; set; } = new();
 }
