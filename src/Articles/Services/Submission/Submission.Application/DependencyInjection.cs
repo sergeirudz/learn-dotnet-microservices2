@@ -23,6 +23,7 @@ public static class DependencyInjection
 
                 // Plug in fluent validation into Mediatr
                 config.AddOpenBehavior(typeof(ValidationBehavior<,>));
+                config.AddOpenBehavior(typeof(SetUserIdBehavior<,>));
             });
         return services;
     }
