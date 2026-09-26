@@ -2,9 +2,8 @@ using Blocks.Domain.Entities;
 
 namespace Submission.Domain.Entities;
 
-public partial class Journal : IEntity
+public partial class Journal : Entity
 {
-    public int Id { get; init; }
     public string Name { get; set; }
     public string Abbreviation { get; set; }
     private readonly List<Article> _articles = new();
