@@ -15,4 +15,9 @@ public static class Extensions
             .NotEmpty()
             .WithMessage(c => ValidationMessages.NullOrEmptyValue.FormatWith(propertyName));
 
+    public static IRuleBuilderOptions<T, string?> MaximumLengthWithMessage<T>(this IRuleBuilder<T, string?> ruleBuilder,
+        int maxLength, string propertyName)
+        => ruleBuilder
+            .MaximumLength(maxLength)
+            .WithMessage(c => ValidationMessages.MaxLengthExceeded.FormatWith(propertyName, maxLength));
 }
