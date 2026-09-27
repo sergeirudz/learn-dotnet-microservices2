@@ -13,6 +13,9 @@ public class SubmissionDbContext(DbContextOptions<SubmissionDbContext> options) 
     public virtual DbSet<Author> Authors { get; set; }
     public virtual DbSet<ArticleActor> ArticleActors { get; set; }
 
+    public virtual DbSet<Asset> Assets { get; set; }
+    public virtual DbSet<AssetTypeDefinition> AssetTypes { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

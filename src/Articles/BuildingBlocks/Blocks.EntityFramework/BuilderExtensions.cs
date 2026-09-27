@@ -26,6 +26,16 @@ public static class BuilderExtensions
 
         return new ValueConverter<TCollection, string>(
             v => serializeFunc(v), // serialize list into a column in the DB
-            v => deserializeFunc(v));  // Deserialize list into .NET
+            v => deserializeFunc(v)); // Deserialize list into .NET
+    }
+
+    public static ValueConverter<IReadOnlyList<T>, string> BuildJsonReadOnlyListConvertor<T>()
+    {
+        Func<IReadOnlyList<T>, string> serializeFunc = v => JsonSerializer.Serialize(v);
+        Func<string, IReadOnlyList<T>> deserializeFunc = v => JsonSerializer.Deserialize<IReadOnlyList<T>>(v ?? "[]")!;
+
+        return new ValueConverter<IReadOnlyList<T>, string>(
+            v => serializeFunc(v),
+            v => deserializeFunc(v));
     }
 }

@@ -15,18 +15,6 @@ internal class ArticleEntityConfiguration : EntityConfiguration<Article>
         builder.Property(e => e.Title).HasMaxLength(256).IsRequired();
         builder.Property(e => e.Scope).HasMaxLength(2048).IsRequired();
 
-        // builder.Property(e => e.Stage)
-        //     // How we will store the value in DB
-        //     .HasConversion(
-        //         v => v.ToString(), // convert enum to string
-        //         v => (ArticleStage)Enum.Parse(typeof(ArticleStage), v) // string -> enum
-        //     );
-        //
-        // builder.Property(e => e.Type)
-        //     .HasConversion(
-        //         v => v.ToString(),
-        //         v => (ArticleType)Enum.Parse(typeof(ArticleType), v)
-        //     );
         // Instead of manually repeating the code. Use a generic HasEnumConversion extension method
         builder.Property(e => e.Stage).HasEnumConversion();
         builder.Property(e => e.Type).HasEnumConversion();
@@ -35,5 +23,11 @@ internal class ArticleEntityConfiguration : EntityConfiguration<Article>
             .HasForeignKey(e => e.JournalId)
             .IsRequired()
             .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(e => e.Assets).WithOne(e => e.Article)
+            .HasForeignKey(e => e.ArticleId)
+            .IsRequired()
+            // If allowed to article, then need to delete all its assets
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

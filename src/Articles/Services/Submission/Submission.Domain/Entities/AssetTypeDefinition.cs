@@ -2,7 +2,7 @@ using Blocks.Domain.Entities;
 
 namespace Submission.Domain.Entities;
 
-public class AssetTypeDefinition : Entity<AssetType>
+public class AssetTypeDefinition : EnumEntity<AssetType>
 {
     public required byte MaxFileSizeInMB { get; init; }
 

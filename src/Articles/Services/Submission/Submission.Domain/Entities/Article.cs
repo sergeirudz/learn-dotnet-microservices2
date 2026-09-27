@@ -15,6 +15,9 @@ public partial class Article : Entity
     public int JournalId { get; init; }
     public Journal Journal { get; init; }
 
+    private readonly List<Asset> _assets = new();
+    public IReadOnlyList<Asset> Assets => _assets.AsReadOnly();
+
     // Navigation collection for the Article-Actor link entity
     public List<ArticleActor> Actors { get; set; } = new();
 }
