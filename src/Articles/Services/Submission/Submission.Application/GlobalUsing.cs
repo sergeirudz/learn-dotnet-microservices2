@@ -25,3 +25,7 @@ global using Submission.Application.Features.Shared;
 
 //Persistence
 global using Submission.Persistence.Repositories;
+global using AssetTypeDefinitionRepository = Blocks.EntityFrameworkCore.CachedRepository<
+    Submission.Persistence.SubmissionDbContext,
+    Submission.Domain.Entities.AssetTypeDefinition,
+    Articles.Abstractions.Enums.AssetType>;
