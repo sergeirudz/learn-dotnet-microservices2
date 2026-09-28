@@ -7,22 +7,23 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="FluentValidation" Version="12.1.1" />
-      <PackageReference Include="MediatR" Version="14.2.0" />
+        <PackageReference Include="FluentValidation" Version="12.1.1"/>
+        <PackageReference Include="MediatR" Version="14.2.0"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\BuildingBlocks\Articles.Abstractions\Articles.Abstractions.csproj" />
-      <ProjectReference Include="..\..\..\BuildingBlocks\Blocks.Exceptions\Blocks.Exceptions.csproj" />
-      <ProjectReference Include="..\..\..\BuildingBlocks\Blocks.MediatR\Blocks.MediatR.csproj" />
-      <ProjectReference Include="..\Submission.Domain\Submission.Domain.csproj" />
-      <ProjectReference Include="..\Submission.Persistence\Submission.Persistence.csproj" />
+        <ProjectReference Include="..\..\..\BuildingBlocks\Articles.Abstractions\Articles.Abstractions.csproj"/>
+        <ProjectReference Include="..\..\..\BuildingBlocks\Blocks.Exceptions\Blocks.Exceptions.csproj"/>
+        <ProjectReference Include="..\..\..\BuildingBlocks\Blocks.MediatR\Blocks.MediatR.csproj"/>
+        <ProjectReference Include="..\..\..\Modules\FileStorage\FileStorage.Contracts\FileStorage.Contracts.csproj"/>
+        <ProjectReference Include="..\Submission.Domain\Submission.Domain.csproj"/>
+        <ProjectReference Include="..\Submission.Persistence\Submission.Persistence.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Reference Include="Microsoft.AspNetCore.Http.Features">
-        <HintPath>..\..\..\..\..\..\..\..\..\.dotnet\packs\Microsoft.AspNetCore.App.Ref\10.0.2\ref\net10.0\Microsoft.AspNetCore.Http.Features.dll</HintPath>
-      </Reference>
+        <Reference Include="Microsoft.AspNetCore.Http.Features">
+            <HintPath>..\..\..\..\..\..\..\..\..\.dotnet\packs\Microsoft.AspNetCore.App.Ref\10.0.2\ref\net10.0\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+        </Reference>
     </ItemGroup>
 
 </Project>
