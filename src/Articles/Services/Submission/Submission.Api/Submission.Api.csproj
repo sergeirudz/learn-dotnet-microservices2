@@ -7,18 +7,19 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\BuildingBlocks\Articles.Security\Articles.Security.csproj" />
-      <ProjectReference Include="..\Submission.Application\Submission.Application.csproj" />
+        <ProjectReference Include="..\..\..\BuildingBlocks\Articles.Security\Articles.Security.csproj"/>
+        <ProjectReference Include="..\..\..\Modules\FileStorage\FileStorage.MongoGridFS\FileStorage.MongoGridFS.csproj"/>
+        <ProjectReference Include="..\Submission.Application\Submission.Application.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Reference Include="Articles.Abstractions">
-        <HintPath>..\..\..\BuildingBlocks\Articles.Abstractions\bin\Debug\net10.0\Articles.Abstractions.dll</HintPath>
-      </Reference>
+        <Reference Include="Articles.Abstractions">
+            <HintPath>..\..\..\BuildingBlocks\Articles.Abstractions\bin\Debug\net10.0\Articles.Abstractions.dll</HintPath>
+        </Reference>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.3" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.3"/>
     </ItemGroup>
 
 </Project>

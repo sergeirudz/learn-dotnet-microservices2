@@ -1,3 +1,5 @@
+using FileStorage.MongoGridFS;
+
 namespace Submission.Api;
 
 public static class DependencyInjection
@@ -9,6 +11,8 @@ public static class DependencyInjection
             .AddEndpointsApiExplorer() // Minimal API Docs
             .AddSwaggerGen() // Swagger setup
             ;
+
+        services.AddMongoFileStorage(configuration);
         return services;
     }
 }
