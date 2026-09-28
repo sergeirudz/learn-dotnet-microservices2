@@ -15,6 +15,8 @@ internal class AssetTypeDefinitionEntityConfiguration : IEntityTypeConfiguration
 
         builder.Property(e => e.Name).HasEnumConversion().HasMaxLength(MaxLength.C64).IsRequired().HasColumnOrder(1);
 
+        builder.Property(e => e.MaxAssetCount).HasDefaultValue(0);
+
         builder.Property(e => e.DefaultFileExtension).HasMaxLength(MaxLength.C8).HasDefaultValue("pdf").IsRequired();
 
         builder.ComplexProperty(e => e.AllowedFileExtensions, builder =>
