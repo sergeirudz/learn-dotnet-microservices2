@@ -10,6 +10,6 @@ public class CreateUserEndpoint : Endpoint<CreateUserCommand, CreateUserResponse
 {
     public override async Task HandleAsync(CreateUserCommand req, CancellationToken ct)
     {
-        return base.HandleAsync(req, ct);
+        // return base.HandleAsync(req, ct);
     }
 }

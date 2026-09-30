@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
@@ -38,4 +39,24 @@ public static class BuilderExtensions
             v => serializeFunc(v),
             v => deserializeFunc(v));
     }
+
+    public static PropertyBuilder<IReadOnlyList<T>> HasJsonReadOnlyListConversion<T>(
+        this PropertyBuilder<IReadOnlyList<T>> builder)
+        => builder.HasConversion(BuildJsonReadOnlyListConvertor<T>());
+
+    public static ComplexTypePropertyBuilder<T> HasJsonListConversion<T>(this ComplexTypePropertyBuilder<T> builder)
+        => builder.HasConversion(BuildJsonReadOnlyListConvertor<T>());
+
+    public static PropertyBuilder<TCollection> HasJsonListConversion<TCollection, T>(
+        this PropertyBuilder<TCollection> builder)
+        where TCollection : IList<T>
+        => builder.HasConversion(BuildJsonListConvertor<TCollection>());
+
+    public static PropertyBuilder<TProperty> HasColumnNameSameAsProperty<TProperty>(
+        this PropertyBuilder<TProperty> builder)
+        => builder.HasColumnName(builder.Metadata.PropertyInfo?.Name);
+
+    public static ComplexTypePropertyBuilder<TProperty> HasColumnNameSameAsProperty<TProperty>(
+        this ComplexTypePropertyBuilder<TProperty> builder)
+        => builder.HasColumnName(builder.Metadata.PropertyInfo?.Name);
 }
