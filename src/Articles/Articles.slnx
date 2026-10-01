@@ -9,6 +9,10 @@
     <Project Path="BuildingBlocks/Blocks.MediatR/Blocks.MediatR.csproj" />
   </Folder>
   <Folder Name="/Modules/" />
+  <Folder Name="/Modules/EmailService/">
+    <Project Path="Modules/EmailService/EmailService.Contracts/EmailService.Contracts.csproj" />
+    <Project Path="Modules/EmailService/EmailService.Smtp/EmailService.Smtp.csproj" />
+  </Folder>
   <Folder Name="/Modules/FileStorage/">
     <Project Path="Modules/FileStorage/FileStorage.Contracts/FileStorage.Contracts.csproj" />
     <Project Path="Modules/FileStorage/FileStorage.MongoGridFS/FileStorage.MongoGridFS.csproj" />
