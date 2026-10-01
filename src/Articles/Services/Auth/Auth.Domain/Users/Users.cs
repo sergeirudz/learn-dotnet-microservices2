@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Auth.Domain.Users;
 
-public class Users : IdentityUser<int>, IEntity
+public partial class Users : IdentityUser<int>, IEntity
 {
     public required string FirstName { get; set; }
     public required string LastName { get; set; }

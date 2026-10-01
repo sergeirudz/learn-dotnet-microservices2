@@ -8,11 +8,12 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\..\BuildingBlocks\Articles.Abstractions\Articles.Abstractions.csproj"/>
+        <ProjectReference Include="..\Auth.Domain\Auth.Domain.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="FastEndpoints" Version="8.3.0" />
-      <PackageReference Include="FastEndpoints.Swagger" Version="8.3.0" />
+        <PackageReference Include="FastEndpoints" Version="8.3.0"/>
+        <PackageReference Include="FastEndpoints.Swagger" Version="8.3.0"/>
     </ItemGroup>
 
 </Project>
