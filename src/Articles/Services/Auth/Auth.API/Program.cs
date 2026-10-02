@@ -1,5 +1,6 @@
 using FastEndpoints.Swagger;
 using Auth.Api;
+using Auth.Application;
 using Auth.Persistence;
 using FastEndpoints;
 
@@ -12,6 +13,7 @@ builder.Services
 
 builder.Services
     .AddApiServices(builder.Configuration) // Register API-specific services
+    .AddApplicationServices(builder.Configuration) // Register Applicaiton-specific services
     .AddPersistenceServices(builder.Configuration); // Register Persistence-specific services
 
 #endregion
@@ -22,8 +24,6 @@ var app = builder.Build();
 #region Use
 
 app
-    .UseSwagger() // Exposes Swagger JSON docs; can be early
-    .UseSwaggerUI() // Enables Swagger UI; must come after UseSwagger
     .UseHttpsRedirection() // Redirects HTTP to HTTPS; safe early
     .UseRouting() // Enables endpoint routing; must come before UseAuthorization
     .UseFastEndpoints()

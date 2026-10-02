@@ -58,5 +58,7 @@ internal class UserEntityConfiguration : EntityConfiguration<Users>
         builder.Property(e => e.PictureUrl).HasMaxLength(MaxLength.C2048);
         // If allowed to delete user, need to allow to delete user roles
         builder.HasMany(e => e.UserRoles).WithOne().HasForeignKey(e => e.UserId).OnDelete(DeleteBehavior.Cascade);
+        // user has multiple refresh tokens, refresh token has one user, foreign key is user id inside refresh token, if user is deleted, delete all refresh tokens
+        builder.HasMany(e => e.RefreshTokens).WithOne().HasForeignKey(e => e.UserId).OnDelete(DeleteBehavior.Cascade);
     }
 }

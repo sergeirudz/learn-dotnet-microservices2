@@ -22,10 +22,9 @@ public static class DependencyInjection
 
     public static IServiceCollection AddApiServices(this IServiceCollection services, IConfiguration config)
     {
-        services.AddFastEndpoints()
+        services
+            .AddFastEndpoints()
             .SwaggerDocument()
-            .AddEndpointsApiExplorer()
-            .AddSwaggerGen()
             .AddJwtAuthentication(config)
             .AddJwtIdentity(config)
             .AddAuthorization();

@@ -28,4 +28,9 @@ public partial class Users
         //insight - UserCreated is published from CreateUserEndpoint, not from the aggregate: the reset-password token it carries only exists there
         return user;
     }
+
+    public void AssignRefreshToken(RefreshToken refreshToken)
+    {
+        _refreshTokens.Add(refreshToken);
+    }
 }
