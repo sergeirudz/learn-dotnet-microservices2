@@ -1,0 +1,14 @@
+//global using ConfigureJwtOptions = Articles.System.ConfigureOptions<Auth.Application.JwtOptions>;
+// Third-party libraries
+
+global using Mapster;
+global using FluentValidation;
+global using FastEndpoints;
+
+// Internal libraries
+global using Blocks.Core;
+global using Blocks.EntityFrameworkCore;
+global using Blocks.Core.FluentValidation;
+
+// Domain
+global using Auth.Domain.Users;

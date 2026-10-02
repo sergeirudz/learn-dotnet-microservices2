@@ -5,7 +5,7 @@ using EmailService.Contracts;
 using Auth.Domain.Users.Events;
 using FastEndpoints;
 
-namespace Auth.API.Features.Users.CreateAccount;
+namespace Auth.API.Features.CreateUser;
 
 public class SendConfirmationEmailOnUserCreatedHandler(
     IEmailService emailService,
