@@ -3,6 +3,7 @@ using Blocks.Core.Security;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using System.Security.Claims;
+using Blocks.Core.Extensions;
 
 namespace Blocks.AspNetCore;
 
@@ -14,7 +15,7 @@ public interface IRouteProvider
 
 //insight - Solid Princile interface segregation
 public class HttpContextProvider(IHttpContextAccessor _httpContextAccessor)
-    : IClaimsProvider, IRouteProvider
+
 {
     public HttpContext HttpContext => _httpContextAccessor.HttpContext!;
 

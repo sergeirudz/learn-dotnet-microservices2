@@ -24,7 +24,7 @@ public class SendConfirmationEmailOnUserCreatedHandler(
         await emailService.SendEmailAsync(emailMessage);
     }
 
-    public EmailMessage BuildConfirmationEmail(Users user, string resetLink, string fromEmailAddress)
+    public EmailMessage BuildConfirmationEmail(Domain.Users.Users user, string resetLink, string fromEmailAddress)
     {
         const string ConfirmationEmail =
             "Dear {0},<br/>An account has been created for you.<br/>Please set your password using the following URL: <br/>{1}";
