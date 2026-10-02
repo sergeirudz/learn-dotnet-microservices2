@@ -22,4 +22,5 @@ public partial class Users : IdentityUser<int>, IEntity
 
     private List<UserRole> _userRoles = new List<UserRole>();
     public virtual IReadOnlyList<UserRole> UserRoles => _userRoles;
+    public List<RefreshToken> RefreshTokens { get; set; } = new();
 }

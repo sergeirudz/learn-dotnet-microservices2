@@ -4,8 +4,10 @@ using Blocks.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using Articles.Security;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
@@ -41,6 +43,31 @@ public class LoginEndpoint(
 
         var jwtToken = GenerateJWTToken(user.Id.ToString(), user.FullName, command.Email, userRoles,
             Array.Empty<Claim>());
+        var refreshToken = GenerateRefreshToken(HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown");
+
+        user.RefreshTokens.Add(refreshToken);
+
+        var userResult = await _userManager.UpdateAsync(user);
+        if (!userResult.Succeeded)
+            throw new BadRequestException("Could not persist refresh token.");
+
+        await Send.OkAsync(new LoginResponse(command.Email, jwtToken, refreshToken.Token));
+    }
+
+    public RefreshToken GenerateRefreshToken(string clientIpAddress)
+    {
+        using (var rng = RandomNumberGenerator.Create())
+        {
+            var randomBytes = new byte[64];
+            rng.GetBytes(randomBytes);
+            return new RefreshToken
+            {
+                Token = Convert.ToBase64String(randomBytes),
+                ExpiresOn = DateTime.UtcNow.AddDays(7),
+                CreatedOn = DateTime.UtcNow,
+                CreatedByIp = clientIpAddress,
+            };
+        }
     }
 
     public string GenerateJWTToken(string userId, string fullName, string email, IEnumerable<string> roles,
