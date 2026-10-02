@@ -13,6 +13,10 @@ public static class DependencyInjection
 {
     public static IServiceCollection ConfigureApiOptions(this IServiceCollection services, IConfiguration configuration)
     {
+        services
+            // Will reg this JwtOptions in app, then can be included in IOptions<JwtOptions> interface
+            // Will validate the JwtOptions values in appsettings.json, if not valid will throw exception
+            .AddAndValidateOptions<JwtOptions>(configuration);
         return services;
     }
 
