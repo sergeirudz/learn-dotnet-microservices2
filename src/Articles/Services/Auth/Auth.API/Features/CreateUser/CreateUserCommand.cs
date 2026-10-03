@@ -1,6 +1,4 @@
 using Articles.Abstractions.Enums;
-using Auth.Domain.Users;
-using Auth.Domain.Users.Enums;
 
 namespace Auth.API.Features.CreateUser;
 

@@ -1,4 +1,4 @@
-using Auth.Domain.Users.Enums;
+using Articles.Abstractions.Enums;
 using Auth.Domain.Users.ValueObjects;
 using Blocks.Domain.Entities;
 using Microsoft.AspNetCore.Identity;

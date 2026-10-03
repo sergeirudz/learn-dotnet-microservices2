@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/BuildingBlocks/">
     <Project Path="BuildingBlocks/Articles.Abstractions/Articles.Abstractions.csproj" />
+    <Project Path="BuildingBlocks/Articles.Grpc.Contracts/Articles.Grpc.Contracts.csproj" />
     <Project Path="BuildingBlocks/Articles.Security/Articles.Security.csproj" />
     <Project Path="BuildingBlocks/Blocks.AspNetCore/Blocks.AspNetCore.csproj" />
     <Project Path="BuildingBlocks/Blocks.Core/Blocks.Core.csproj" />

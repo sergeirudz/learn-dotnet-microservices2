@@ -17,4 +17,8 @@
         <ProjectReference Include="..\..\..\BuildingBlocks\Blocks.EntityFramework\Blocks.EntityFramework.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <Folder Include="Users\Enums\"/>
+    </ItemGroup>
+
 </Project>
