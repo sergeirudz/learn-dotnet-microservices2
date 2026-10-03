@@ -8,6 +8,7 @@
     <Project Path="BuildingBlocks/Blocks.EntityFramework/Blocks.EntityFramework.csproj" />
     <Project Path="BuildingBlocks/Blocks.Exceptions/Blocks.Exceptions.csproj" />
     <Project Path="BuildingBlocks/Blocks.MediatR/Blocks.MediatR.csproj" />
+    <Project Path="BuildingBlocks/Blocks.Redis/Blocks.Redis.csproj" />
   </Folder>
   <Folder Name="/Modules/" />
   <Folder Name="/Modules/EmailService/">

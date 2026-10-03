@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+        <ProjectReference Include="..\Journals.Domain\Journals.Domain.csproj"/>
+    </ItemGroup>
+
 </Project>
