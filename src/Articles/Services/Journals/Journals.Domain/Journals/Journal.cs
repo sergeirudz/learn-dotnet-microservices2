@@ -6,7 +6,7 @@ namespace Journals.Domain.Journals;
 [Document(StorageType = StorageType.Json, Prefixes = new[] { nameof(Journal) })]
 public class Journal : Entity
 {
-    [Indexed] private string Name { get; set; }
+    [Indexed] public string Name { get; set; }
 
     [Indexed] public required string Abbreviation { get; set; }
     public string Description { get; set; }
