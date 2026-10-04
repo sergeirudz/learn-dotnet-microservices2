@@ -15,6 +15,7 @@ public partial class Person : Entity
     public HonorificTitle? Honorific { get; set; }
 
     public ProfessionalProfile? ProfessionalProfile { get; set; }
+    public required EmailAddress Email { get; init; }
     public string? PictureUrl { get; set; } = null!;
 
     public int? UserId { get; set; }

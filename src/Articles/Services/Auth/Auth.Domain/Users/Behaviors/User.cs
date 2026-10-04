@@ -6,7 +6,7 @@ namespace Auth.Domain.Users;
 
 public partial class User
 {
-    public static User Create(IUserCreationInfo userInfo, Person person)
+    public static User Create(IUserCreationInfo userInfo)
     {
         if (userInfo.UserRoles.IsNullOrEmpty())
             throw new ArgumentException("User must have at least one role.", nameof(userInfo.UserRoles));

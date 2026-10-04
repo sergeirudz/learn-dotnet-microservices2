@@ -1,4 +1,5 @@
 using Auth.Domain.Persons;
+using Auth.Domain.Persons.ValueObjects;
 using Blocks.Core.Constraints;
 using Blocks.EntityFrameworkCore;
 using Blocks.EntityFrameworkCore.EntityConfigurations;
@@ -16,6 +17,21 @@ internal class PersonEntityConfiguration : EntityConfiguration<Person>
         builder.Property(e => e.FirstName).HasMaxLength(MaxLength.C64).IsRequired();
         builder.Property(e => e.LastName).HasMaxLength(MaxLength.C64).IsRequired();
         builder.Property(e => e.Gender).HasEnumConversion().IsRequired();
+
+        // OwnsOne istead of ComplexProperty because EF.Core doesnt support yet indexes on ComplexxProperty
+        builder.OwnsOne(
+            e => e.Email, b =>
+            {
+                b.Property(n => n.Value)
+                    .HasColumnName(nameof(Person.Email))
+                    .HasMaxLength(MaxLength.C64);
+                b.Property(e => e.NormalizedEmail)
+                    .HasColumnName(nameof(EmailAddress.NormalizedEmail))
+                    .HasMaxLength(MaxLength.C64);
+
+                b.HasIndex(e => e.NormalizedEmail).IsUnique();
+            });
+
 
         // OwnsOne instead of ComplexProperty because EF.Core doesnt support yet optional properties with ComplexProperty
         builder.OwnsOne(e => e.Honorific, b =>

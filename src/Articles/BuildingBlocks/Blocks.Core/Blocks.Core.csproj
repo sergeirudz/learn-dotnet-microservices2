@@ -17,4 +17,8 @@
         <PackageReference Include="Microsoft.Extensions.Options.DataAnnotations" Version="10.0.12"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <ProjectReference Include="..\Blocks.Exceptions\Blocks.Exceptions.csproj"/>
+    </ItemGroup>
+
 </Project>

@@ -10,6 +10,7 @@ public partial class Person
     {
         var person = new Person
         {
+            Email = userInfo.Email,
             FirstName = userInfo.FirstName,
             LastName = userInfo.LastName,
             Gender = userInfo.Gender,

@@ -21,7 +21,6 @@ public class CreateUserEndpoint(UserManager<Domain.Users.User> _userManager)
 
         user = Auth.Domain.Users.User.Create(command);
 
-
         var result = await _userManager.CreateAsync(user);
         if (!result.Succeeded)
         {
