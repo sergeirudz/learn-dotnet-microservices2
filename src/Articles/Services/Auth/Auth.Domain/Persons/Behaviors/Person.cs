@@ -22,4 +22,10 @@ public partial class Person
 
         return person;
     }
+
+    public void AssignUser(User user)
+    {
+        this.UserId = user.Id;
+        this.Email.NormalizedEmail = user.NormalizedEmail!;
+    }
 }
