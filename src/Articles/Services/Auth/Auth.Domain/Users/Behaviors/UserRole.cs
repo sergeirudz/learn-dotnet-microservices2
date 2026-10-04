@@ -1,5 +1,3 @@
-using Mapster;
-
 namespace Auth.Domain.Users;
 
 public partial class UserRole
@@ -17,7 +15,11 @@ public partial class UserRole
         if (end.HasValue && start >= end.Value)
             throw new ArgumentException("End date must be after start date.", nameof(userRoleInfo.ExpiringDate));
 
-        var userRole = userRoleInfo.Adapt<UserRole>();
-        return userRole;
+        return new UserRole
+        {
+            RoleId = (int)userRoleInfo.RoleId,
+            StartDate = start,
+            ExpiringDate = end
+        };
     }
 }

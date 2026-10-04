@@ -1,6 +1,6 @@
 using Articles.Abstractions.Enums;
 
-namespace Auth.API.Features.CreateUser;
+namespace Auth.API.Features.Users.CreateUser;
 
 public class CreateUserCommand : IUserCreationInfo
 {
@@ -26,7 +26,7 @@ public record UserRoleDto(
     DateTime? ExpiringDate
 ) : IUserRole
 {
-    // public UserRoleType RoleId => RoleType;
+    public UserRoleType RoleId => RoleType;
 }
 
 public record CreateUserResponse(

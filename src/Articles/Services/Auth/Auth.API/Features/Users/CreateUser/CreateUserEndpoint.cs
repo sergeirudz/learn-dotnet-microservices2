@@ -6,11 +6,11 @@ using FastEndpoints;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 
-namespace Auth.API.Features.CreateUser;
+namespace Auth.API.Features.Users.CreateUser;
 
 [Authorize(Roles = Role.USERADMIN)]
 [HttpPost("users")]
-public class CreateUserEndpoint(UserManager<Domain.Users.Users> _userManager)
+public class CreateUserEndpoint(UserManager<Domain.Users.User> _userManager)
     : Endpoint<CreateUserCommand, CreateUserResponse>
 {
     public override async Task HandleAsync(CreateUserCommand command, CancellationToken ct)
@@ -19,7 +19,7 @@ public class CreateUserEndpoint(UserManager<Domain.Users.Users> _userManager)
         if (user != null) // check if email is already used by an existing User
             throw new BadRequestException($"User with email {command.Email} already exists");
 
-        user = Auth.Domain.Users.Users.Create(command);
+        user = Auth.Domain.Users.User.Create(command);
 
 
         var result = await _userManager.CreateAsync(user);

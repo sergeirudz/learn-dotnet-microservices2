@@ -8,6 +8,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\..\BuildingBlocks\Articles.Abstractions\Articles.Abstractions.csproj"/>
+        <ProjectReference Include="..\..\..\BuildingBlocks\Articles.Grpc.Contracts\Articles.Grpc.Contracts.csproj"/>
         <ProjectReference Include="..\..\..\BuildingBlocks\Articles.Security\Articles.Security.csproj"/>
         <ProjectReference Include="..\..\..\BuildingBlocks\Blocks.AspNetCore\Blocks.AspNetCore.csproj"/>
         <ProjectReference Include="..\..\..\Modules\EmailService\EmailService.Contracts\EmailService.Contracts.csproj"/>
@@ -22,6 +23,10 @@
         <PackageReference Include="FastEndpoints.Swagger" Version="8.3.0"/>
         <PackageReference Include="Flurl.Http" Version="4.0.2"/>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.3"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Features\Users\"/>
     </ItemGroup>
 
 </Project>

@@ -15,4 +15,11 @@ public static class Guard
     {
         return string.IsNullOrEmpty(value);
     }
+
+
+    public static void ThrowIfFalse(this bool condition, string message = "Condition must be true.")
+    {
+        if (!condition)
+            throw new ArgumentException(message);
+    }
 }

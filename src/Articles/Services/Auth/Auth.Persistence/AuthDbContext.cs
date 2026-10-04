@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Auth.Persistence;
 
 public class AuthDbContext(DbContextOptions<AuthDbContext> options) :
-    IdentityDbContext<Users, Role, int>(options)
+    IdentityDbContext<User, Role, int>(options)
 {
     protected override void OnModelCreating(ModelBuilder builder)
     {

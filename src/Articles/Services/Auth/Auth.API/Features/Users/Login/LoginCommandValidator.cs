@@ -1,7 +1,7 @@
 using FastEndpoints;
 using FluentValidation;
 
-namespace Auth.API.Features.Login;
+namespace Auth.API.Features.Users.Login;
 
 public class LoginCommandValidator : Validator<LoginCommand>
 {

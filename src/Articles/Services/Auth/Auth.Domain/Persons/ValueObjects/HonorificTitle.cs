@@ -2,7 +2,7 @@ using Articles.Abstractions.Enums;
 using Blocks.Core;
 using Blocks.Domain.ValueObjects;
 
-namespace Auth.Domain.Users.ValueObjects;
+namespace Auth.Domain.Persons.ValueObjects;
 
 public class HonorificTitle : StringValueObject
 {

@@ -1,25 +1,17 @@
+using Articles.Abstractions;
 using Articles.Abstractions.Enums;
 
 namespace Auth.Domain.Users;
 
-public interface IUserCreationInfo
+public interface IUserCreationInfo : IPersonCreationInfo
 {
-    string Email { get; }
-    string FirstName { get; }
-    string LastName { get; }
-    Gender Gender { get; }
-    Honorific? Honorific { get; }
     string? PhoneNumber { get; }
-    string? PictureUrl { get; }
-    string? CompanyName { get; }
-    string? Position { get; }
-    string? Affiliation { get; }
     IReadOnlyList<IUserRole> UserRoles { get; }
 }
 
 public interface IUserRole
 {
-    UserRoleType RoleType { get; }
-    DateTime? StartDate { get; }
     DateTime? ExpiringDate { get; }
+    DateTime? StartDate { get; }
+    UserRoleType RoleId { get; }
 }

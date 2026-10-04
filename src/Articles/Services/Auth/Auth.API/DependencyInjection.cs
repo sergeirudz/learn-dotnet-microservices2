@@ -36,7 +36,7 @@ public static class DependencyInjection
 
     public static IServiceCollection AddJwtIdentity(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddIdentityCore<Users>(options =>
+        services.AddIdentityCore<User>(options =>
             {
                 // Lockout settings
                 options.Lockout.AllowedForNewUsers = true;
@@ -48,7 +48,7 @@ public static class DependencyInjection
             })
             .AddRoles<Auth.Domain.Roles.Role>()
             // .AddEntityFrameworkStores<AuthDbContext>()
-            .AddSignInManager<SignInManager<Users>>()
+            .AddSignInManager<SignInManager<User>>()
             .AddDefaultTokenProviders();
 
         services.Configure<IdentityOptions>(options => { options.ClaimsIdentity.RoleClaimType = ClaimTypes.Role; });

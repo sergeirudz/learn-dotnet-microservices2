@@ -1,26 +1,20 @@
-using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using Blocks.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Text;
-using Articles.Security;
 using Auth.Application;
-using Microsoft.AspNetCore.Identity.Data;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
+using Auth.Domain.Users;
 
-namespace Auth.API.Features.Login;
+
+namespace Auth.API.Features.Users.Login;
 
 [AllowAnonymous]
 [HttpPost("/tokens")]
 [Tags("Auth")]
 public class LoginEndpoint(
-    UserManager<Users> _userManager,
-    SignInManager<Users> _signInManager,
+    UserManager<Domain.Users.User> _userManager,
+    SignInManager<Domain.Users.User> _signInManager,
     TokenFactory _tokenFactory
 )
     : Endpoint<LoginCommand, LoginResponse>
