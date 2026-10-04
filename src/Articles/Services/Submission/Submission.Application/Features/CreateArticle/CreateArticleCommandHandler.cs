@@ -4,7 +4,7 @@ using Blocks.Exceptions;
 using MediatR;
 using Submission.Domain.Entities;
 using Submission.Persistence.Repositories;
-using Blocks.EntityFramework;
+using Blocks.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Submission.Application.Features.CreateArticle;

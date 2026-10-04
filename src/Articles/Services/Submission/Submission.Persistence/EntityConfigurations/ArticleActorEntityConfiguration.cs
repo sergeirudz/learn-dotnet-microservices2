@@ -1,5 +1,5 @@
 using Articles.Abstractions.Enums;
-using Blocks.EntityFramework;
+using Blocks.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Submission.Domain.Entities;
@@ -15,7 +15,7 @@ public class ArticleActorEntityConfiguration : IEntityTypeConfiguration<ArticleA
         builder.Property(e => e.Role).HasEnumConversion().HasDefaultValue(UserRoleType.AUT);
 
         builder.HasDiscriminator(e => e.TypeDiscriminator)
-            .HasValue<ArticleActor>(nameof(ArticleActor))  // Base Class
+            .HasValue<ArticleActor>(nameof(ArticleActor)) // Base Class
             .HasValue<ArticleAuthor>(nameof(ArticleAuthor)); // Inherited Class
 
 

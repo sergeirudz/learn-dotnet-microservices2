@@ -1,7 +1,7 @@
 using Auth.Domain.Roles;
 using Blocks.Core.Constraints;
-using Blocks.EntityFramework;
-using Blocks.EntityFramework.EntityConfigurations;
+using Blocks.EntityFrameworkCore;
+using Blocks.EntityFrameworkCore.EntityConfigurations;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Auth.Persistence.EntityConfigurations;

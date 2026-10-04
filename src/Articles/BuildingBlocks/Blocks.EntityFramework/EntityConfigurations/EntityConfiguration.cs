@@ -2,7 +2,7 @@ using Blocks.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Blocks.EntityFramework.EntityConfigurations;
+namespace Blocks.EntityFrameworkCore.EntityConfigurations;
 
 public abstract class EntityConfiguration<T> : IEntityTypeConfiguration<T>
 // Extend IEntity because need to say that it contains the `Id` prop 

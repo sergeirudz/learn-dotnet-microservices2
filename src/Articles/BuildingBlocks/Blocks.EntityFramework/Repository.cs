@@ -1,7 +1,7 @@
 using Blocks.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Blocks.EntityFramework;
+namespace Blocks.EntityFrameworkCore;
 
 public interface IRepository<TEntity>
     where TEntity : class, IEntity
