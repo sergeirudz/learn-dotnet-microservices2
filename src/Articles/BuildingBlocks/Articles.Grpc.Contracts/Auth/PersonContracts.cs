@@ -80,7 +80,7 @@ public class GetPersonResponse
 }
 
 [ProtoContract]
-public class CreatePersonRequest
+public class CreatePersonRequest : IPersonCreationInfo
 {
     [ProtoMember(1)] public string Email { get; set; } = default!;
 

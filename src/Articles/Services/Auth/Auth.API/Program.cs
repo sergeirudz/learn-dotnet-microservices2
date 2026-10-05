@@ -1,5 +1,6 @@
 using FastEndpoints.Swagger;
 using Auth.Api;
+using Auth.API.Features.Persons;
 using Auth.Application;
 using Auth.Persistence;
 using FastEndpoints;
@@ -28,6 +29,8 @@ app
     .UseRouting() // Enables endpoint routing; must come before UseAuthorization
     .UseFastEndpoints()
     .UseSwaggerGen();
+
+app.MapGrpcService<PersonGrpcService>(); // We will expose this GRPC service to external clients
 
 #endregion
 

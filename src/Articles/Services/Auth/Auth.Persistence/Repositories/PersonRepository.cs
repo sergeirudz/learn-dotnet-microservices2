@@ -7,7 +7,7 @@ namespace Auth.Persistence.Repositories;
 public class PersonRepository(AuthDbContext dbContext)
     : Repository<AuthDbContext, Person>(dbContext)
 {
-    public override IQueryable<Person> Query()
+    protected override IQueryable<Person> Query()
         => base.Query().Include(p => p.User);
 
     public async Task<Person?> GetByEmailAsync(string email, CancellationToken ct = default)
