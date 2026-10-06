@@ -1,8 +1,7 @@
 using FastEndpoints;
 using FastEndpoints.Swagger;
+using Journals.API;
 using Journals.Persistence;
-
-namespace Journals.API;
 
 var builder = WebApplication.CreateBuilder(args);
 

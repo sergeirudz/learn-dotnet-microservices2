@@ -1,4 +1,5 @@
 using Articles.Abstractions.Enums;
+using Articles.Security;
 using Auth.Domain.Persons;
 using Auth.Domain.Users;
 using Auth.Domain.Users.Events;
