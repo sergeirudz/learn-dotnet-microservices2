@@ -3,7 +3,6 @@ using Auth.Api;
 using Auth.API.Features.Persons;
 using Auth.Application;
 using Auth.Persistence;
-using FastEndpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 

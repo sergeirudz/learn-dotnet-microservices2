@@ -1,14 +1,33 @@
+using FastEndpoints;
+using FastEndpoints.Swagger;
+using Journals.Persistence;
+
 namespace Journals.API;
 
-public class Program
-{
-    public static void Main(string[] args)
-    {
-        var builder = WebApplication.CreateBuilder(args);
-        var app = builder.Build();
+var builder = WebApplication.CreateBuilder(args);
 
-        app.MapGet("/", () => "Hello World!");
+#region Add
 
-        app.Run();
-    }
-}
+builder.Services
+    .ConfigureApiOptions(builder.Configuration); // Configure Options
+
+builder.Services
+    .AddApiServices(builder.Configuration) // Register API-specific services
+    .AddPersistenceServices(builder.Configuration); // Register Persistence-specific services
+
+#endregion
+
+var app = builder.Build();
+
+
+#region Use
+
+app
+    .UseHttpsRedirection() // Redirects HTTP to HTTPS; safe early
+    .UseRouting() // Enables endpoint routing; must come before UseAuthorization
+    .UseFastEndpoints()
+    .UseSwaggerGen();
+
+#endregion
+
+app.Run();
