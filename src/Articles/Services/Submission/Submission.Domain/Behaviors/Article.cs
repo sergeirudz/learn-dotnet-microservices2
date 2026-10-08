@@ -40,4 +40,26 @@ public partial class Article
 
         return asset;
     }
+
+    public void Submit(IArticleAction<ArticleActionType> action, ArticleStateMachineFactory _stateMachineFactory)
+    {
+        // check if all mandatory contribution areas are covered
+        // var contributionAreas = _actors.OfType<ArticleAuthor>()
+        //     .SelectMany(author => author.ContributionAreas)
+        //     .ToHashSet();
+        //
+        // var missingMandatoryAreas = ContributionAreaCategories.MandatoryAreas
+        //     .Except(contributionAreas)
+        //     .ToList();
+        //
+        // if (missingMandatoryAreas.Count > 0)
+        //     throw new DomainException(
+        //         $"Cannot submit article: Missing mandatory contribution areas: {string.Join(", ", missingMandatoryAreas)}");
+
+        SubmittedById = action.CreatedById;
+        SubmittedOn = action.CreatedOn;
+
+        // todo add an ArticleSubmitted domain event
+        SetStage(ArticleStage.Submitted, action, _stateMachineFactory);
+    }
 }
