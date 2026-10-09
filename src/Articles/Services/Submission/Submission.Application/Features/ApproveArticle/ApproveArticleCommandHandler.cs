@@ -1,13 +1,16 @@
 using Auth.Grpc;
 using Blocks.EntityFrameworkCore;
+using Blocks.Exceptions;
 using Grpc.Core;
+using Journals.Grpc;
 
 namespace Submission.Application.Features.ApproveArticle;
 
 public class ApproveArticleCommandHandler(
     ArticleRepository _articleRepository,
     PersonRepository _personRepository,
-    IPersonService _personClient
+    IPersonService _personClient,
+    IJournalService _journalService
 )
     : IRequestHandler<ApproveArticleCommand, IdResponse>
 {
@@ -15,8 +18,11 @@ public class ApproveArticleCommandHandler(
     {
         var article = await _articleRepository.FindByIdOrThrowAsync(command.ArticleId);
 
-        // if (!await IsEditorAssignedToJournal(article.JournalId, command.CreatedById))
-        //     throw new BadRequestException($"Editor is not assigned to the article's Journal (Id: {article.JournalId})");
+
+        if (!await IsEditorAssignedToJournal(article.JournalId, command.CreatedById))
+        {
+            throw new BadRequestException($"Editor is not assigned to the article's Journal (Id: {article.JournalId})");
+        }
 
         Person editor = await GetOrCreatePersonByUserId(command.CreatedById, ct);
 
@@ -43,5 +49,16 @@ public class ApproveArticleCommandHandler(
         }
 
         return person;
+    }
+
+    private async Task<bool> IsEditorAssignedToJournal(int journalId, int userId)
+    {
+        var response = await _journalService.IsEditorAssignedToJournalAsync(new IsEditorAssignedToJournalRequest
+        {
+            JournalId = journalId,
+            UserId = userId
+        });
+
+        return response.IsAssigned;
     }
 }
