@@ -13,6 +13,7 @@ using System.Text.Json.Serialization;
 using Blocks.Core;
 using Blocks.Mapster;
 using FastEndpoints;
+using ProtoBuf.Grpc.Server;
 using JwtOptions = Articles.Security.JwtOptions;
 
 namespace Journals.API;
@@ -43,6 +44,13 @@ public static class DependencyInjection
             .AddMapsterConfigsFromCurrentAssembly()
             .AddAuthorization()
             ;
+
+        // Grpc server
+        services.AddCodeFirstGrpc(options =>
+        {
+            options.ResponseCompressionLevel = CompressionLevel.Fastest;
+            options.EnableDetailedErrors = true;
+        });
 
         // Grpc clients
         var grpcOptions = config.GetSectionByTypeName<GrpcServicesOptions>();
