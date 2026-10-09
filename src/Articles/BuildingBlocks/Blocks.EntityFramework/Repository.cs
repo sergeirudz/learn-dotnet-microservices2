@@ -41,8 +41,8 @@ public class Repository<TContext, TEntity>
     public virtual async Task<TEntity?> GetByIdAsync(int id)
         => await Query().SingleOrDefaultAsync(e => e.Id.Equals(id));
 
-    public virtual async Task<TEntity> AddAsync(TEntity entity)
-        => (await _entity.AddAsync(entity)).Entity;
+    public virtual async Task<TEntity> AddAsync(TEntity entity, CancellationToken ct)
+        => (await _entity.AddAsync(entity, ct)).Entity;
 
     public virtual TEntity Update(TEntity entity)
         => _entity.Update(entity).Entity;

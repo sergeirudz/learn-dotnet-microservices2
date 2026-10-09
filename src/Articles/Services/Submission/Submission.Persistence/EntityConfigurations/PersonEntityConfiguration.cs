@@ -26,7 +26,7 @@ public class PersonEntityConfiguration : EntityConfiguration<Person>
 
         // For value objects use ComplexProperty
         builder.ComplexProperty(
-            o => o.EmailAddress, builder =>
+            o => o.Email, builder =>
             {
                 // Configure Value of the Valueobject
                 builder.Property(n => n.Value)

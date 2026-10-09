@@ -11,7 +11,7 @@ public partial class Article
 
         if (Actors.Exists(a => a.PersonId == author.Id && a.Role == role))
         {
-            throw new DomainException($"Author {author.EmailAddress} is already assigned to the article");
+            throw new DomainException($"Author {author.Email} is already assigned to the article");
         }
 
         Actors.Add(new ArticleAuthor()
@@ -63,8 +63,7 @@ public partial class Article
         SetStage(ArticleStage.Submitted, action, _stateMachineFactory);
     }
 
-    public void Approve(Person editor, IArticleAction<ArticleActionType> action,
-        ArticleStateMachineFactory _stateMachineFactory)
+    public void Approve(Person editor)
     {
         Actors.Add(new ArticleActor
         {

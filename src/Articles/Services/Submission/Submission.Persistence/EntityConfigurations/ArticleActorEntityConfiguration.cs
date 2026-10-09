@@ -26,7 +26,7 @@ public class ArticleActorEntityConfiguration : IEntityTypeConfiguration<ArticleA
             .OnDelete(DeleteBehavior.Cascade); // When delete, delete connected Actors
 
         builder.HasOne(aa => aa.Person)
-            .WithMany(a => a.ArticleActors)
+            .WithMany(a => a.Actors)
             .HasForeignKey(aa => aa.PersonId)
             .OnDelete(DeleteBehavior.Cascade);
     }

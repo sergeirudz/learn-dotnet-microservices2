@@ -1,13 +1,13 @@
 using Auth.Grpc;
 using Blocks.EntityFrameworkCore;
-using Blocks.Exceptions;
-using Journals.Grpc;
+using Grpc.Core;
 
 namespace Submission.Application.Features.ApproveArticle;
 
 public class ApproveArticleCommandHandler(
     ArticleRepository _articleRepository,
-    PersonRepository _personRepository
+    PersonRepository _personRepository,
+    IPersonService _personClient
 )
     : IRequestHandler<ApproveArticleCommand, IdResponse>
 {
@@ -18,7 +18,7 @@ public class ApproveArticleCommandHandler(
         // if (!await IsEditorAssignedToJournal(article.JournalId, command.CreatedById))
         //     throw new BadRequestException($"Editor is not assigned to the article's Journal (Id: {article.JournalId})");
 
-        var editor = await _personRepository.GetByUserIdAsync(command.CreatedById);
+        Person editor = await GetOrCreatePersonByUserId(command.CreatedById, ct);
 
         article.Approve(editor);
 
@@ -27,14 +27,21 @@ public class ApproveArticleCommandHandler(
         return new IdResponse(article.Id);
     }
 
-    // private async Task<bool> IsEditorAssignedToJournal(int journalId, int userId)
-    // {
-    //     var response = await _journalClient.IsEditorAssignedToJournalAsync(new IsEditorAssignedToJournalRequest
-    //     {
-    //         JournalId = journalId,
-    //         UserId = userId
-    //     });
-    //
-    //     return response.IsAssigned;
-    // }
+    private async Task<Person> GetOrCreatePersonByUserId(int userId, CancellationToken ct)
+    {
+        var person = await _personRepository.GetByUserIdAsync(userId);
+
+        if (person is null)
+        {
+            var response = await _personClient.GetPersonByUserIdAsync(new GetPersonByUserIdRequest
+                {
+                    UserId = userId,
+                },
+                new CallOptions(cancellationToken: ct));
+            person = Person.Create(response.PersonInfo);
+            await _personRepository.AddAsync(person, ct);
+        }
+
+        return person;
+    }
 }
