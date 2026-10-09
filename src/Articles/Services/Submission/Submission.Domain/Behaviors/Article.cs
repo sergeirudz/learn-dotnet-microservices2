@@ -62,4 +62,14 @@ public partial class Article
         // todo add an ArticleSubmitted domain event
         SetStage(ArticleStage.Submitted, action, _stateMachineFactory);
     }
+
+    public void Approve(Person editor, IArticleAction<ArticleActionType> action,
+        ArticleStateMachineFactory _stateMachineFactory)
+    {
+        Actors.Add(new ArticleActor
+        {
+            Person = editor,
+            Role = UserRoleType.REVED
+        });
+    }
 }

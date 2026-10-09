@@ -1,3 +1,5 @@
+using System.Linq.Expressions;
+using Blocks.Core;
 using Blocks.Domain.Entities;
 using Blocks.Exceptions;
 using Microsoft.EntityFrameworkCore;
@@ -48,4 +50,9 @@ public static class RepositoryExtensions
 
         return entity!;
     }
+
+    public static async Task<TEntity> SingleOrThrowAsync<TEntity>(this IQueryable<TEntity> source,
+        Expression<Func<TEntity, bool>> predicate, CancellationToken ct = default)
+        where TEntity : class, IEntity<int>
+        => Guard.NotFound(await source.SingleOrDefaultAsync(predicate, ct));
 }
