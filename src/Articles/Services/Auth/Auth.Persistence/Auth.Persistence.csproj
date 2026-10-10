@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\BuildingBlocks\Blocks.EntityFramework\Blocks.EntityFramework.csproj"/>
+        <ProjectReference Include="..\..\..\BuildingBlocks\Blocks.EntityFrameworkCore\Blocks.EntityFrameworkCore.csproj"/>
         <ProjectReference Include="..\Auth.Domain\Auth.Domain.csproj"/>
     </ItemGroup>
 

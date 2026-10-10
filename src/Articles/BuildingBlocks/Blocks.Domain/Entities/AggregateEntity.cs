@@ -1,6 +1,12 @@
 namespace Blocks.Domain.Entities;
 
-public class AggregateEntity : Entity
+public interface IAggregateEntity : IEntity
+{
+    IReadOnlyList<IDomainEvent> DomainEvents { get; }
+    void ClearDomainEvents();
+}
+
+public class AggregateEntity : Entity, IAggregateEntity
 {
     private List<IDomainEvent> _domainEvents = new();
     public IReadOnlyList<IDomainEvent> DomainEvents => _domainEvents;
