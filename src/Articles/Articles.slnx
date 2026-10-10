@@ -32,6 +32,11 @@
     <Project Path="Services/Journals/Journals.Domain/Journals.Domain.csproj" />
     <Project Path="Services/Journals/Journals.Persistence/Journals.Persistence.csproj" />
   </Folder>
+  <Folder Name="/Services/Review/">
+    <Project Path="Services/Review/Review.API/Review.API.csproj" />
+    <Project Path="Services/Review/Review.Application/Review.Application.csproj" />
+    <Project Path="Services/Review/Review.Domain/Review.Domain.csproj" />
+  </Folder>
   <Folder Name="/Services/Submission/">
     <Project Path="Services/Submission/Submission.Api/Submission.Api.csproj" />
     <Project Path="Services/Submission/Submission.Application/Submission.Application.csproj" />
