@@ -1,6 +1,7 @@
 using System.Reflection;
 using Blocks.Mapster;
 using Blocks.MediatR.Behaviors;
+using Blocks.Messaging.MassTransit;
 using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,7 +27,9 @@ public static class DependencyInjection
                 // Plug in fluent validation into Mediatr
                 config.AddOpenBehavior(typeof(ValidationBehavior<,>));
                 config.AddOpenBehavior(typeof(SetUserIdBehavior<,>));
-            });
+            })
+            .AddMassTransitWithRabbitMQ(configuration, Assembly.GetExecutingAssembly())
+            ;
         return services;
     }
 }
