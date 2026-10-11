@@ -1,4 +1,5 @@
 using System.Reflection;
+using Blocks.Mapster;
 using Blocks.MediatR.Behaviors;
 using FluentValidation;
 using Microsoft.Extensions.Configuration;
@@ -13,6 +14,7 @@ public static class DependencyInjection
         IConfiguration configuration)
     {
         services
+            .AddMapsterConfigsFromCurrentAssembly() // register all configurations from current app
             // register all fluent validation
             .AddValidatorsFromAssemblyContaining<
                 CreateArticleCommandValidator>() // Register Fluent validators as transient
