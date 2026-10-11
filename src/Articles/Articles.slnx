@@ -43,4 +43,5 @@
     <Project Path="Services/Submission/Submission.Domain/Submission.Domain.csproj" />
     <Project Path="Services/Submission/Submission.Persistence/Submission.Persistence.csproj" />
   </Folder>
+  <Project Path="BuildingBlocks/Blocks.Messaging/Blocks.Messaging.csproj" />
 </Solution>

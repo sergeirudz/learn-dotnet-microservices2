@@ -1,5 +1,8 @@
+using MediatR;
+
 namespace Blocks.Domain;
 
-public class IDomainEvent
+public class IDomainEvent : INotification
+
 {
 }
