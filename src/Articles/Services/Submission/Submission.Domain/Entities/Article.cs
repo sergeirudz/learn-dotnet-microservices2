@@ -15,6 +15,11 @@ public partial class Article : AggregateEntity
     public int JournalId { get; init; }
     public Journal Journal { get; init; }
 
+
+    public int? SubmittedById { get; set; }
+    public Person? SubmittedBy { get; set; }
+
+
     private readonly List<Asset> _assets = new();
     public IReadOnlyList<Asset> Assets => _assets.AsReadOnly();
 

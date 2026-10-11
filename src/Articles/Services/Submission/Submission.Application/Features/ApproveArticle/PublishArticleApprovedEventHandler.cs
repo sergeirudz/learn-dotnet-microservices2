@@ -9,12 +9,12 @@ namespace Submission.Application.Features.ApproveArticle;
 public class PublishArticleApprovedEventHandler(
     ArticleRepository _articleRepository,
     IPublishEndpoint _publishEndpoint,
-    CancellationToken cancellationToken)
+    CancellationToken ct)
     : INotificationHandler<ArticleApproved>
 {
-    public async Task Handle(ArticleApproved notification, CancellationToken cancellationToken)
+    public async Task Handle(ArticleApproved notification, CancellationToken ct)
     {
-        var article = await _articleRepository.GetByIdAsync(notification.Article.Id);
+        var article = await _articleRepository.GetFullArticleByIdAsync(notification.Article.Id, ct);
 
         var articleDto = article.Adapt<ArticleDto>();
 
