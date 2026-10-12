@@ -5,20 +5,20 @@ using ProtoBuf.Grpc;
 
 namespace Auth.API.Features.Persons;
 
-public class PersonGrpcService(PersonRepository _personRepository, GrpcTypeAdapterConfig _typeAdapterConfig)
+public class PersonGrpcService(PersonRepositoryBase personRepositoryBase, GrpcTypeAdapterConfig _typeAdapterConfig)
     : IPersonService
 {
     public async ValueTask<CreatePersonResponse> GetOrCreatePersonAsync(CreatePersonRequest request,
         CallContext context = default)
     {
-        var person = await _personRepository.GetByEmailAsync(request.Email, context.CancellationToken);
+        var person = await personRepositoryBase.GetByEmailAsync(request.Email, context.CancellationToken);
 
         if (person is null)
         {
             person = Person.Create(request);
 
-            await _personRepository.AddAsync(person);
-            await _personRepository.SaveChangesAsync(context.CancellationToken);
+            await personRepositoryBase.AddAsync(person);
+            await personRepositoryBase.SaveChangesAsync(context.CancellationToken);
         }
 
         //todo - validate CreatePersonRequest, create an HTTP endpoint and use the same handler and validator
@@ -31,15 +31,15 @@ public class PersonGrpcService(PersonRepository _personRepository, GrpcTypeAdapt
 
     public async ValueTask<GetPersonResponse> GetPersonByIdAsync(GetPersonRequest request,
         CallContext context = default)
-        => await GetPersonResponseAsync(() => _personRepository.GetByIdAsync(request.PersonId));
+        => await GetPersonResponseAsync(() => personRepositoryBase.GetByIdAsync(request.PersonId));
 
     public async ValueTask<GetPersonResponse> GetPersonByUserIdAsync(GetPersonByUserIdRequest request,
         CallContext context = default)
-        => await GetPersonResponseAsync(() => _personRepository.GetByUserIdAsync(request.UserId));
+        => await GetPersonResponseAsync(() => personRepositoryBase.GetByUserIdAsync(request.UserId));
 
     public async ValueTask<GetPersonResponse> GetPersonByEmailAsync(GetPersonByEmailRequest request,
         CallContext context = default)
-        => await GetPersonResponseAsync(() => _personRepository.GetByEmailAsync(request.Email));
+        => await GetPersonResponseAsync(() => personRepositoryBase.GetByEmailAsync(request.Email));
 
     private async ValueTask<GetPersonResponse> GetPersonResponseAsync(Func<Task<Person?>> fetch)
     {

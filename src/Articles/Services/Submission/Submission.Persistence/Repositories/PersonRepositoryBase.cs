@@ -3,8 +3,8 @@ using Submission.Domain.Entities;
 
 namespace Submission.Persistence.Repositories;
 
-public class PersonRepository(SubmissionDbContext dbContext)
-    : Repository<Person>(dbContext)
+public class PersonRepositoryBase(SubmissionDbContext dbContext)
+    : RepositoryBase<Person>(dbContext)
 {
     public async Task<Person> GetByUserIdAsync(int userId, bool throwIfNotFound = true)
         => await Entity.SingleOrDefaultAsync(e => e.UserId == userId);

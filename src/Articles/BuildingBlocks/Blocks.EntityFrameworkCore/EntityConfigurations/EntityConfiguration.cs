@@ -4,17 +4,31 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Blocks.EntityFrameworkCore.EntityConfigurations;
 
-public abstract class EntityConfiguration<T> : IEntityTypeConfiguration<T>
-// Extend IEntity because need to say that it contains the `Id` prop 
+public abstract class EntityConfiguration<T> : EntityConfiguration<T, int>
     where T : class, IEntity
 {
-    // Use this when creating entities so you dont need to declare Id inside JournalEntityConfiguration
-    // To allow override declare virtual
+    protected virtual bool HasGeneratedId => true;
+
+    public override void Configure(EntityTypeBuilder<T> builder)
+    {
+        if (HasGeneratedId)
+            builder.Property(e => e.Id).ValueGeneratedOnAdd().HasColumnOrder(0);
+        else
+            builder.Property(e => e.Id).ValueGeneratedNever().HasColumnOrder(0);
+
+        base.Configure(builder);
+    }
+}
+
+public abstract class EntityConfiguration<T, TKey> : IEntityTypeConfiguration<T>
+    where T : class, IEntity<TKey>
+    where TKey : struct
+{
     public virtual void Configure(EntityTypeBuilder<T> builder)
     {
-        // Id is the primary key
         builder.HasKey(e => e.Id);
-        // Id should be generated on creation. Id is the first in the order
-        builder.Property(e => e.Id).ValueGeneratedOnAdd().HasColumnOrder(0);
+        // builder.SeedFromJsonFile();
     }
+
+    protected virtual string EntityName => typeof(T).Name;
 }

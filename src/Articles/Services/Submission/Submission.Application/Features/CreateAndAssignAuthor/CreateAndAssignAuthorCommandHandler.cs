@@ -5,12 +5,12 @@ using Submission.Persistence;
 namespace Submission.Application.Features.CreateAndAssignAuthor;
 
 public class CreateAndAssignAuthorCommandHandler(
-    ArticleRepository _articleRepository)
+    ArticleRepositoryBase articleRepositoryBase)
     : IRequestHandler<CreateAndAssignAuthorCommand, IdResponse>
 {
     public async Task<IdResponse> Handle(CreateAndAssignAuthorCommand command, CancellationToken ct)
     {
-        var article = await _articleRepository.GetByIdOrThrowAsync(command.ArticleId);
+        var article = await articleRepositoryBase.GetByIdOrThrowAsync(command.ArticleId);
 
         Author? author = null;
         if (command.UserId == null) // new author, new person
@@ -22,7 +22,7 @@ public class CreateAndAssignAuthorCommandHandler(
 
             article.AssignAuthor(author, command.ContributionAreas, command.IsCorrespondingAuthor);
 
-        await _articleRepository.SaveChangesAsync(ct);
+        await articleRepositoryBase.SaveChangesAsync(ct);
 
         return new IdResponse(article.Id);
     }

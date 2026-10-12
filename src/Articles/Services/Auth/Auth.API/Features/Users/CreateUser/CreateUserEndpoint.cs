@@ -16,13 +16,13 @@ namespace Auth.API.Features.Users.CreateUser;
 [HttpPost("users")]
 public class CreateUserEndpoint(
     UserManager<User> _userManager,
-    PersonRepository _personRepository,
+    PersonRepositoryBase personRepositoryBase,
     AuthDbContext _dbContext)
     : Endpoint<CreateUserCommand, CreateUserResponse>
 {
     public override async Task HandleAsync(CreateUserCommand command, CancellationToken ct)
     {
-        var person = await _personRepository.GetByEmailAsync(command.Email, ct);
+        var person = await personRepositoryBase.GetByEmailAsync(command.Email, ct);
         if (person?.User != null) // check if email is already used by an existing User
             throw new BadRequestException($"User with email {command.Email} already exists");
         //start transaction to ensure atomic creation 
@@ -42,7 +42,7 @@ public class CreateUserEndpoint(
 
         // link User to Person and Save
         person.AssignUser(user);
-        await _personRepository.SaveChangesAsync(ct);
+        await personRepositoryBase.SaveChangesAsync(ct);
 
         var resetPasswordToken = await _userManager.GeneratePasswordResetTokenAsync(user);
 
@@ -58,8 +58,8 @@ public class CreateUserEndpoint(
     {
         var person = Person.Create(command);
 
-        await _personRepository.AddAsync(person);
-        await _personRepository.SaveChangesAsync(ct);
+        await personRepositoryBase.AddAsync(person);
+        await personRepositoryBase.SaveChangesAsync(ct);
         return person;
     }
 }

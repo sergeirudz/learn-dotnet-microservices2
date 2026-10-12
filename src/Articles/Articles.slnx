@@ -36,6 +36,7 @@
     <Project Path="Services/Review/Review.API/Review.API.csproj" />
     <Project Path="Services/Review/Review.Application/Review.Application.csproj" />
     <Project Path="Services/Review/Review.Domain/Review.Domain.csproj" />
+    <Project Path="Services/Review/Review.Persistence/Review.Persistence.csproj" />
   </Folder>
   <Folder Name="/Services/Submission/">
     <Project Path="Services/Submission/Submission.Api/Submission.Api.csproj" />

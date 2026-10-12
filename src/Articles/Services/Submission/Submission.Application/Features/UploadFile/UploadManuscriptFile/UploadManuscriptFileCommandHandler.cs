@@ -4,14 +4,14 @@ using FileStorage.Contracts;
 namespace Submission.Application.Features.UploadFile.UploadManuscriptFile;
 
 public class UploadManuscriptFileCommandHandler(
-    ArticleRepository _articleRepository,
+    ArticleRepositoryBase articleRepositoryBase,
     AssetTypeDefinitionRepository _assetTypeRepository,
     IFileService _fileService)
     : IRequestHandler<UploadManuscriptFileCommand, IdResponse>
 {
     public async Task<IdResponse> Handle(UploadManuscriptFileCommand command, CancellationToken cancellationToken)
     {
-        var article = await _articleRepository.GetByIdOrThrowAsync(command.ArticleId);
+        var article = await articleRepositoryBase.GetByIdOrThrowAsync(command.ArticleId);
 
         var assetType = _assetTypeRepository.GetById(command.AssetType);
 
@@ -41,7 +41,7 @@ public class UploadManuscriptFileCommandHandler(
         try
         {
             asset.CreateFile(uploadResponse, assetType);
-            await _articleRepository.SaveChangesAsync();
+            await articleRepositoryBase.SaveChangesAsync();
         }
         catch (Exception)
         {

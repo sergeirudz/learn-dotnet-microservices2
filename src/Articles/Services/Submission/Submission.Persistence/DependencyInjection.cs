@@ -25,9 +25,9 @@ public static class DependencyInjection
             options.AddInterceptors(provider.GetServices<ISaveChangesInterceptor>());
         });
 
-        // Repository from Persistance 
-        services.AddScoped(typeof(Repository<>));
-        services.AddScoped(typeof(Repository<>)); // only Repository<>
+        // RepositoryBase from Persistance 
+        services.AddScoped(typeof(RepositoryBase<>));
+        services.AddScoped(typeof(RepositoryBase<>)); // only RepositoryBase<>
 
         services.AddScoped<CachedRepository<SubmissionDbContext, AssetTypeDefinition, AssetType>>();
 

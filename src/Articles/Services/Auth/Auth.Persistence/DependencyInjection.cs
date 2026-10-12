@@ -14,7 +14,7 @@ public static class DependencyInjection
         var connectionString = config.GetConnectionString("Database");
         services.AddDbContext<AuthDbContext>(opts => opts.UseSqlServer(connectionString));
 
-        services.AddScoped<PersonRepository>();
+        services.AddScoped<PersonRepositoryBase>();
         // services.AddScoped<UserRepository>();
 
         return services;

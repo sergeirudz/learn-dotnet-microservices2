@@ -14,7 +14,7 @@ namespace Auth.API.Features.Users.Login;
 [HttpPost("/tokens")]
 [Tags("Auth")]
 public class LoginEndpoint(
-    PersonRepository _personRepository,
+    PersonRepositoryBase personRepositoryBase,
     UserManager<Domain.Users.User> _userManager,
     SignInManager<Domain.Users.User> _signInManager,
     TokenFactory _tokenFactory
@@ -24,7 +24,7 @@ public class LoginEndpoint(
     public override async Task HandleAsync(LoginCommand command, CancellationToken ct)
     {
         var person = Guard.NotFound(
-            await _personRepository.GetByEmailAsync(command.Email, ct)
+            await personRepositoryBase.GetByEmailAsync(command.Email, ct)
         );
         var user = Guard.NotFound(person.User);
 

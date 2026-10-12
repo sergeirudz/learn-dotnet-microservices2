@@ -9,13 +9,13 @@ namespace Blocks.EntityFrameworkCore;
 public static class RepositoryExtensions
 {
     public static async Task<TEntity> FindByIdOrThrowAsync<TEntity, TContext>(
-        // Because Static method FindByIdOrThrowAsync injects `this Repository`
+        // Because Static method FindByIdOrThrowAsync injects `this RepositoryBase`
         // I can use this method in `var journal = await _journalRepository.FindByIdOrThrowAsync(command.JournalId)` 
-        this Repository<TContext, TEntity> repository, int id)
+        this RepositoryBase<TContext, TEntity> repositoryBase, int id)
         where TContext : DbContext
         where TEntity : class, IEntity
     {
-        var entity = await repository.FindByIdAsync(id);
+        var entity = await repositoryBase.FindByIdAsync(id);
         if (entity is null)
         {
             throw new NotFoundException($"{typeof(TEntity).Name} not found");
@@ -38,11 +38,11 @@ public static class RepositoryExtensions
 
     //insight about the difference between FindByIdAsync and GetByIdAsync
     public static async Task<TEntity> GetByIdOrThrowAsync<TEntity, TContext>(
-        this Repository<TContext, TEntity> repository, int id)
+        this RepositoryBase<TContext, TEntity> repositoryBase, int id)
         where TContext : DbContext
         where TEntity : class, IEntity
     {
-        var entity = await repository.GetByIdAsync(id);
+        var entity = await repositoryBase.GetByIdAsync(id);
         if (entity is null)
         {
             throw new NotFoundException($"{typeof(TEntity).Name} not found");

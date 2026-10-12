@@ -7,8 +7,8 @@ using Journals.Grpc;
 namespace Submission.Application.Features.ApproveArticle;
 
 public class ApproveArticleCommandHandler(
-    ArticleRepository _articleRepository,
-    PersonRepository _personRepository,
+    ArticleRepositoryBase articleRepositoryBase,
+    PersonRepositoryBase personRepositoryBase,
     IPersonService _personClient,
     IJournalService _journalService
 )
@@ -16,7 +16,7 @@ public class ApproveArticleCommandHandler(
 {
     public async Task<IdResponse> Handle(ApproveArticleCommand command, CancellationToken ct)
     {
-        var article = await _articleRepository.FindByIdOrThrowAsync(command.ArticleId);
+        var article = await articleRepositoryBase.FindByIdOrThrowAsync(command.ArticleId);
 
 
         if (!await IsEditorAssignedToJournal(article.JournalId, command.CreatedById))
@@ -28,14 +28,14 @@ public class ApproveArticleCommandHandler(
 
         article.Approve(editor);
 
-        await _articleRepository.SaveChangesAsync(ct);
+        await articleRepositoryBase.SaveChangesAsync(ct);
 
         return new IdResponse(article.Id);
     }
 
     private async Task<Person> GetOrCreatePersonByUserId(int userId, CancellationToken ct)
     {
-        var person = await _personRepository.GetByUserIdAsync(userId);
+        var person = await personRepositoryBase.GetByUserIdAsync(userId);
 
         if (person is null)
         {
@@ -45,7 +45,7 @@ public class ApproveArticleCommandHandler(
                 },
                 new CallOptions(cancellationToken: ct));
             person = Person.Create(response.PersonInfo);
-            await _personRepository.AddAsync(person, ct);
+            await personRepositoryBase.AddAsync(person, ct);
         }
 
         return person;

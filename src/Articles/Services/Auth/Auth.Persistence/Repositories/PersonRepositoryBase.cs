@@ -4,8 +4,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Auth.Persistence.Repositories;
 
-public class PersonRepository(AuthDbContext dbContext)
-    : Repository<AuthDbContext, Person>(dbContext)
+public class PersonRepositoryBase(AuthDbContext dbContext)
+    : RepositoryBase<AuthDbContext, Person>(dbContext)
 {
     protected override IQueryable<Person> Query()
         => base.Query().Include(p => p.User);
