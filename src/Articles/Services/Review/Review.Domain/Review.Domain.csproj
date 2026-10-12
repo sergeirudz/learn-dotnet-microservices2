@@ -6,4 +6,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\BuildingBlocks\Articles.Abstractions\Articles.Abstractions.csproj"/>
+        <ProjectReference Include="..\..\..\BuildingBlocks\Blocks.Core\Blocks.Core.csproj"/>
+    </ItemGroup>
+
 </Project>
