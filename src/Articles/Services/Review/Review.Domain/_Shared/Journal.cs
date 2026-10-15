@@ -1,6 +1,7 @@
 using Blocks.Domain.Entities;
+using Review.Domain.Articles;
 
-namespace Review.Domain.Articles;
+namespace Review.Domain.Shared;
 
 public partial class Journal : Entity
 {
@@ -14,4 +15,7 @@ public partial class Journal : Entity
 
 
     public IReadOnlyCollection<ReviewerSpecialization> Reviewers { get; set; } = new HashSet<ReviewerSpecialization>();
+
+
+    public void AddArticle(Article article) => _articles.Add(article);
 }
