@@ -2,7 +2,9 @@ using Articles.Abstractions.Events;
 using Articles.Abstractions.Events.Dtos;
 using Blocks.Domain;
 using Blocks.Exceptions;
+using FileStorage.Contracts;
 using MassTransit;
+using Review.Application.FileStorage;
 using Review.Domain.Assets;
 using Article = Review.Domain.Articles.Behaviors.Article;
 
@@ -14,10 +16,8 @@ public class ArticleApprovedForReviewEventHandler(
     Repository<Person> _personRepository,
     Repository<Journal> _journalRepository,
     AssetTypeDefinitionRepository _assetTypeDefinition,
- 
-
-    // IFileService _reviewFileService,
-    // FileServiceFactory _fileServiceFactory,
+    IFileService _fileService,
+    FileServiceFactory _fileServiceFactory
     // ArticleStateMachineFactory _stateMachineFactory
 )
     : IConsumer<ArticleApprovedForReviewEvent>
@@ -50,6 +50,10 @@ public class ArticleApprovedForReviewEventHandler(
             var asset = Asset.CreateFromSubmission(assetDto, assetTypeDefinition, articleDto.Id);
 
             // todo - download the foles from submission and upload to review
+            var submissionFileService = _fileServiceFactory(FileStorageType.Submission);
+            var (fileStream, fileMetadata) = await submissionFileService.DownloadFileAsync(assetDto.File.FileServerId);
+
+            await _fileService.UploadAsync(fileMetadata, fileStream);
 
             assets.Add(asset);
         }
