@@ -22,7 +22,6 @@ public interface IFileService
     Task<bool> TryDeleteByTagAsync(string key, string value, CancellationToken ct = default);
 
     Task<(Stream FileStream, FileMetadata FileMetadata)> DownloadAsync(string fileId, CancellationToken ct = default);
-    Task<(Stream FileStream, string ContentType)> DownloadFileAsync(string fileId);
 
     Task<(Stream FileStream, FileMetadata FileMetadata)> DownloadByTagAsync(string key, string value,
         CancellationToken ct = default);
