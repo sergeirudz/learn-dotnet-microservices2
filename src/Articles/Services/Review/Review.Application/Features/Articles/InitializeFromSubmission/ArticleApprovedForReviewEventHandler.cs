@@ -51,9 +51,14 @@ public class ArticleApprovedForReviewEventHandler(
 
             // todo - download the foles from submission and upload to review
             var submissionFileService = _fileServiceFactory(FileStorageType.Submission);
-            var (fileStream, fileMetadata) = await submissionFileService.DownloadFileAsync(assetDto.File.FileServerId);
+            var (fileStream, fileMetadata) = await submissionFileService.DownloadAsync(assetDto.File.FileServerId);
 
-            await _fileService.UploadAsync(fileMetadata, fileStream);
+            var uploadRequest = new FileUploadRequest(
+                fileMetadata.StoragePath, fileMetadata.FileName,
+                fileMetadata.ContentType, fileMetadata.FileSize);
+            fileMetadata = await _fileService.UploadAsync(uploadRequest, fileStream);
+
+            asset.CreateFile(fileMetadata, assetTypeDefinition);
 
             assets.Add(asset);
         }
