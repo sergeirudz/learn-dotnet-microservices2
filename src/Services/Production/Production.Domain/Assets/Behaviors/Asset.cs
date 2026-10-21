@@ -1,0 +1,104 @@
+﻿using Blocks.Domain;
+using FileStorage.Contracts;
+using Mapster;
+using Production.Domain.Articles;
+using Production.Domain.Assets.Enums;
+using Production.Domain.Assets.Events;
+using Production.Domain.Assets.ValueObjects;
+using Production.Domain.StateMachines;
+
+namespace Production.Domain.Assets;
+
+public partial class Asset
+{
+    private Asset() {/* use factory method*/}
+
+    public string GenerateStorageFilePath(string fileName) 
+        => $"Articles/{ArticleId}/{Name}/{Number}/{CalculateNextVersion()}/{fileName}";
+    
+    public byte CalculateNextVersion() => (byte)(CurrentVersion + 1);
+    public byte CurrentVersion => CurrentFile?.Version.Value ?? 0;
+
+    public string GenerateFileName(string fileExtension)
+    {
+        var assetName = Name.Value.Replace("'", "").Replace(" ", "-");
+        var assetNumber = Number > 0 ? Number.ToString() : string.Empty;
+        return $"{assetName}{assetNumber}.{fileExtension}";
+    }
+
+    public bool IsNewVersion => this.CurrentFileLink != null;
+
+    public bool IsFileRequested => this.State == AssetState.Requested;
+
+    public static Asset CreateFromReview(int articleId, AssetTypeDefinition type, byte assetNumber)
+    {
+        return new Asset()
+        {
+            ArticleId = articleId,
+            Number = AssetNumber.FromNumber(assetNumber, type),
+            Name = AssetName.FromAssetType(type),
+            Type = type.Name,
+            CategoryId = type.DefaultCategoryId,
+            State = AssetState.None,
+        };
+    }
+
+    public static Asset Create(Article article, AssetTypeDefinition type, byte assetNumber = 0)
+    {
+        //insight - value objects for AssetName & AssetNumber, encapsulate validation            
+        return new Asset()
+        {
+            ArticleId = article.Id,
+            Article = article,
+            Number = AssetNumber.FromNumber(assetNumber, type),
+            Name = AssetName.FromAssetType(type),
+            Type = type.Name,
+            //TypeDefinition = type,
+            CategoryId = type.DefaultCategoryId,
+            State = AssetState.None
+        };
+    }
+
+    public void SetState(AssetState newState, IArticleAction<AssetActionType> action, AssetStateMachineFactory stateMachineFactory)
+    {
+        if (!stateMachineFactory(this.State).CanFire(this.Article.Stage, this.Type, action.ActionType))
+            throw new DomainException("Action not allowed for current stage");
+
+        this.State = newState;
+        this.LastModifiedOn = DateTime.UtcNow;
+        this.LastModifiedById = action.CreatedById;
+        AddAction(action);
+    }
+
+    public void CancelRequest(IArticleAction<AssetActionType> action, AssetStateMachineFactory stateMachineFactory)
+    {
+        if (this.State != AssetState.Requested)
+            throw new DomainException("Wrong status");
+
+        SetState(AssetState.Uploaded, action, stateMachineFactory);
+    }
+
+    public File CreateAndAddFile(FileMetadata uploadResponse, AssetTypeDefinition assetTypeDefinition, IArticleAction<AssetActionType>? action = null, AssetStateMachineFactory? stateMachineFactory = null)
+    {
+        if ((action is null) != (stateMachineFactory is null))
+            throw new DomainException($"{nameof(action)} and {nameof(stateMachineFactory)} must be supplied together");
+
+        var file = File.CreateFile(uploadResponse, this, assetTypeDefinition);
+
+        _files.Add(file);
+        CurrentFileLink = new AssetCurrentFileLink() { File = file };
+
+        if (action is not null)
+            SetState(AssetState.Uploaded, action, stateMachineFactory!);
+        else
+            State = AssetState.Uploaded;
+
+        return file;
+    }
+
+    private void AddAction(IArticleAction<AssetActionType> action)
+    {
+        _actions.Add(action.Adapt<AssetAction>());
+        AddDomainEvent(new AssetActionExecuted(action, this.Article.Stage, this.Type, this.Number, this.CurrentFile));
+    }
+}

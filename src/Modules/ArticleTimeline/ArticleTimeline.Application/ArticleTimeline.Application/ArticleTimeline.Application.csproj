@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FastEndpoints.Messaging.Core"/>
+    <PackageReference Include="MediatR"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\ArticleTimeline.Domain\ArticleTimeline.Domain.csproj" />
+    <ProjectReference Include="..\..\ArticleTimeline.Persistence\ArticleTimeline.Persistence.csproj" />
+  </ItemGroup>
+
+</Project>
